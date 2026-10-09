@@ -4,7 +4,9 @@
   "license": "proprietary",
   "description": "Icon library and selector component for Filament.",
   "require": {
-    "php": "^8.4",
+    "php": "^8.4"
+  },
+  "require-dev": {
     "filament/filament": "*"
   },
   "autoload": {
