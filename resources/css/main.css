@@ -1,0 +1,108 @@
+@import '../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../views/*.blade.php';
+@source '../js/main.js';
+@source '../../src/**/*';
+
+.fi-input-wrp.fi-fo-icon-picker-trigger {
+    & {
+        @apply max-w-16;
+    }
+
+    &:not(:has(svg)) {
+        @apply max-w-10;
+    }
+}
+
+.fi-input.fi-icon-picker {
+    @apply block w-full bg-gray-50 rounded-4xl py-2 pe-3 ps-10 text-sm text-gray-950 ring-1 ring-inset ring-gray-950/10 transition duration-75 placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:bg-white/5 dark:text-white dark:ring-white/20 dark:placeholder:text-gray-500 dark:focus:bg-white/10 dark:focus:ring-primary-500;
+}
+
+.fi-fo-icon-picker-btn {
+    @apply flex min-h-9 items-center gap-x-2 rounded-lg py-1.5 ps-3 pe-3 text-start text-sm leading-6 text-primary-400 dark:text-primary-600 border-none;
+}
+
+.fi-icon-picker-modal-content {
+    @apply pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 rounded-xl max-h-[90vh];
+}
+
+.fi-icon-picker-heading {
+    @apply text-base font-semibold leading-6 text-gray-950 dark:text-white;
+}
+
+.fi-icon-picker-description {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.fi-icon-picker-btn-cancel {
+    @apply relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg gap-1.5 px-3 py-2 text-sm inline-grid bg-white text-gray-950 hover:bg-gray-50 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 ring-1 ring-gray-950/10 dark:ring-white/20;
+}
+
+.fi-icon-picker-item {
+    @apply relative flex aspect-square items-center justify-center rounded-lg p-3 transition duration-75 outline-none focus-visible:ring-2 focus-visible:ring-primary-500 border;
+    @apply text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/10 dark:hover:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500;
+}
+
+.fi-icon-picker-item.active {
+    @apply bg-primary-100 ring-2 ring-primary-500 text-primary-600 dark:bg-primary-500/20 dark:text-primary-400 border-primary-500;
+}
+
+
+.animate-shimmer {
+    background: linear-gradient(
+        90deg,
+        theme('colors.gray.200') 0%,
+        theme('colors.gray.100') 50%,
+        theme('colors.gray.200') 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.animate-shimmer {
+    background: linear-gradient(
+        90deg,
+        theme('colors.gray.700') 0%,
+        theme('colors.gray.600') 50%,
+        theme('colors.gray.700') 100%
+    );
+}
+
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
