@@ -1,8 +1,4 @@
-/* Reference Filament's theme so @apply/theme() resolve, without bundling it (Filament loads its own theme). */
-@reference '../../vendor/filament/filament/resources/css/theme.css';
-
-/* Only emit utilities actually used by this package's own sources. */
-@import 'tailwindcss/utilities' source(none);
+@import '../../vendor/filament/filament/resources/css/theme.css';
 
 @source '../views/*.blade.php';
 @source '../js/main.js';
@@ -53,7 +49,7 @@
 
 
 .animate-shimmer {
-    background-image: linear-gradient(
+    background: linear-gradient(
         90deg,
         theme('colors.gray.200') 0%,
         theme('colors.gray.100') 50%,
@@ -63,9 +59,8 @@
     animation: shimmer 1.5s infinite;
 }
 
-/* Dark mode only. Uses background-image so the size set above isn't reset. */
-.dark .animate-shimmer {
-    background-image: linear-gradient(
+.animate-shimmer {
+    background: linear-gradient(
         90deg,
         theme('colors.gray.700') 0%,
         theme('colors.gray.600') 50%,
