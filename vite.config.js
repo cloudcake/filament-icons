@@ -6,7 +6,7 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: [
-                'resources/css/main.css'
+                'resources/css/main.css',
             ],
             output: {
                 entryFileNames: 'js/[name].js',
