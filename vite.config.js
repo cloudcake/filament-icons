@@ -7,7 +7,6 @@ export default defineConfig({
         rollupOptions: {
             input: [
                 'resources/css/main.css',
-                'resources/css/filament-baseline.css',
             ],
             output: {
                 entryFileNames: 'js/[name].js',

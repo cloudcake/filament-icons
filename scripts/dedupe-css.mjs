@@ -1,13 +1,25 @@
-// Strips rules from the built CSS that are byte-for-byte identical to a
-// baseline build of Filament's theme.css alone (built by the same vite run),
-// since every panel already loads Filament's theme. The source stylesheet
-// keeps its full theme.css import, so @apply and theme variables still work.
-// Usage: node scripts/dedupe-css.mjs <baseline.css> <target.css>...
+// Removes rules from the built CSS that Filament already serves in every panel.
+// The baseline is Filament's prebuilt panel stylesheet, the same file
+// `php artisan filament:assets` publishes as public/css/filament/filament/app.css,
+// resolved from vendor/filament/filament after `composer install` (so it tracks
+// the Filament version pinned in composer.lock). The source stylesheet keeps its
+// full theme.css import, so @apply and theme variables still compile.
+// Both files go through the same esbuild minifier before comparing so that
+// formatting differences between Filament's build and ours don't hide matches.
+// Usage: node scripts/dedupe-css.mjs <target.css>...
 import fs from 'node:fs';
 import postcss from 'postcss';
+import { transformSync } from 'esbuild';
 
-const [base, ...targets] = process.argv.slice(2);
+const base = 'vendor/filament/filament/dist/theme.css';
+if (!fs.existsSync(base)) {
+    console.error(`dedupe-css: ${base} not found, run composer install first`);
+    process.exit(1);
+}
+const targets = process.argv.slice(2);
+const norm = (css) => transformSync(css, { loader: 'css', minify: true }).code;
 
+const isLeaf = (n) => n.type === 'rule' || (n.type === 'atrule' && n.nodes && !n.nodes.some((c) => c.type === 'rule' || c.type === 'atrule'));
 const ctx = (node) => {
     const parts = [];
     for (let p = node.parent; p && p.type !== 'root'; p = p.parent) {
@@ -22,27 +34,17 @@ const key = (node) => {
 };
 
 const known = new Set();
-postcss.parse(fs.readFileSync(base, 'utf8')).walk((n) => {
-    if (n.type === 'rule' || (n.type === 'atrule' && n.nodes && !n.nodes.some((c) => c.type === 'rule' || c.type === 'atrule'))) known.add(key(n));
-    if (n.type === 'decl' && n.parent.type === 'rule') known.add(`${key(n.parent)}#${n.toString()}`);
-});
+postcss.parse(norm(fs.readFileSync(base, 'utf8'))).walk((n) => { if (isLeaf(n)) known.add(key(n)); });
 
 for (const file of targets) {
     const before = fs.statSync(file).size;
-    const root = postcss.parse(fs.readFileSync(file, 'utf8'));
-    root.walk((n) => {
-        if (n.type === 'rule' || (n.type === 'atrule' && n.nodes && !n.nodes.some((c) => c.type === 'rule' || c.type === 'atrule'))) {
-            if (known.has(key(n))) n.remove();
-        }
-    });
-    // drop containers left empty
+    const root = postcss.parse(norm(fs.readFileSync(file, 'utf8')));
+    root.walk((n) => { if (isLeaf(n) && known.has(key(n))) n.remove(); });
     let changed = true;
     while (changed) {
         changed = false;
         root.walk((n) => { if ((n.type === 'atrule' || n.type === 'rule') && n.nodes && n.nodes.length === 0) { n.remove(); changed = true; } });
     }
-    fs.writeFileSync(file, root.toString());
+    fs.writeFileSync(file, norm(root.toString()));
     console.log(`${file}: ${before} -> ${fs.statSync(file).size} bytes`);
 }
-
-fs.unlinkSync(base);
