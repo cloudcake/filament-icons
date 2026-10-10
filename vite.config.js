@@ -6,7 +6,8 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: [
-                'resources/css/main.css'
+                'resources/css/main.css',
+                'resources/css/filament-baseline.css',
             ],
             output: {
                 entryFileNames: 'js/[name].js',

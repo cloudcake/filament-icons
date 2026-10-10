@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build && node scripts/dedupe-css.mjs resources/dist/css/filament-baseline.css resources/dist/css/main.css"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.2",
