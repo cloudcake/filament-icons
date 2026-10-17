@@ -74,11 +74,10 @@ class IconSetManager
     /**
      * Load icons from disk.
      *
-     * @param array<string>|null $allowedSets
      * @return Collection<int, array{name: string, set: string, prefix: string}>
      * @throws ReflectionException
      */
-    protected function loadIcons(?array $allowedSets = null): Collection
+    protected function loadIcons(): Collection
     {
         $icons = collect();
         $sets = $this->getSets();
@@ -147,7 +146,7 @@ class IconSetManager
      */
     public function searchIcons(string $query, ?array $allowedSets = null, ?string $setFilter = null): Collection
     {
-        $icons = $this->getIcons($allowedSets);
+        $icons = $this->filterByAllowedSets($this->getIcons(), $allowedSets);
 
         if ($setFilter) {
             $icons = $icons->filter(fn($icon) => $icon['set'] === $setFilter);
@@ -182,7 +181,7 @@ class IconSetManager
     {
         $icons = $search
             ? $this->searchIcons($search, $allowedSets, $setFilter)
-            : $this->getIcons($allowedSets);
+            : $this->filterByAllowedSets($this->getIcons(), $allowedSets);
 
         if ($setFilter && !$search) {
             $icons = $icons->filter(fn($icon) => $icon['set'] === $setFilter);
@@ -197,6 +196,22 @@ class IconSetManager
             'hasMore' => ($offset + $perPage) < $total,
             'total' => $total,
         ];
+    }
+
+    /**
+     * Restrict a collection of icons to the given sets.
+     *
+     * @param Collection<int, array{name: string, set: string, prefix: string}> $icons
+     * @param array<string>|null $allowedSets
+     * @return Collection<int, array{name: string, set: string, prefix: string}>
+     */
+    protected function filterByAllowedSets(Collection $icons, ?array $allowedSets): Collection
+    {
+        if (empty($allowedSets)) {
+            return $icons;
+        }
+
+        return $icons->filter(fn ($icon) => in_array($icon['set'], $allowedSets, true))->values();
     }
 
     /**

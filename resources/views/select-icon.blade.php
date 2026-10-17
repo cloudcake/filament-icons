@@ -6,7 +6,6 @@
     $allowedSets = $getAllowedSets();
     $isSearchable = $isSearchable();
     $modalSize = $getModalSize();
-    $gridColumns = $getGridColumns();
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">

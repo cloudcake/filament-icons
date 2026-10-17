@@ -17,4 +17,4 @@ Register the composer repository:
 
 Install the package:
 
-`composer require cloudcake/filament-selecticon`
+`composer require cloudcake/filament-icons`
