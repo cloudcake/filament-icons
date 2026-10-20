@@ -17,7 +17,7 @@ class SelectIcon extends Field
     {
         parent::setUp();
 
-        $this->placeholder(fn (): string => __('cloudcake-filament-icons::icon-picker.placeholder'));
+        $this->placeholder(fn (): string => __('cloudcake-filament-icons::selecticon.placeholder'));
     }
 
     public function modalSize(string|Closure|null $size): static
@@ -68,24 +68,9 @@ class SelectIcon extends Field
 
     public function getAllowedSets(): ?array
     {
-        $componentSets = $this->evaluate($this->allowedSets);
-        $configSets =[];
+        $sets = $this->evaluate($this->allowedSets);
 
-        // If the component has specific sets, use those (intersected with config if config is set)
-        if (is_array($componentSets) && ! empty($componentSets)) {
-            if (! empty($configSets)) {
-                return array_values(array_intersect($componentSets, $configSets));
-            }
-
-            return $componentSets;
-        }
-
-        // Otherwise use config sets
-        if (! empty($configSets)) {
-            return $configSets;
-        }
-
-        return null;
+        return (is_array($sets) && ! empty($sets)) ? array_values($sets) : null;
     }
 
     public function placeholder(string|Closure|null $placeholder): static

@@ -41,7 +41,7 @@ trait HasIconQuery
     {
         return array_filter(
             self::cases(),
-            fn(self $icon) => str_contains(strtolower($icon->name), strtolower($query)) || str($icon->value)->after('-')->contains($query)
+            fn(self $icon) => str_contains(strtolower($icon->name), strtolower($query)) || str($icon->value)->after('-')->contains(strtolower($query))
         );
     }
 }

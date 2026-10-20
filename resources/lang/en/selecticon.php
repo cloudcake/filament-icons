@@ -6,8 +6,6 @@ return [
     'all_sets' => 'All Sets',
     'no_results' => 'No icons found',
     'loading' => 'Loading icons...',
-    'load_more' => 'Load more',
-    'selected' => 'Selected',
     'clear' => 'Clear selection',
     'close' => 'Close',
     'select_icon' => 'Select Icon',
