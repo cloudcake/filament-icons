@@ -1,13 +1,13 @@
 <?php
 
-namespace Cloudcake\Components;
+namespace Cloudcake\Icons;
 
 use Closure;
 use Filament\Forms\Components\Field;
 
 class SelectIcon extends Field
 {
-    protected string $view = 'cloudcake-filament-icons::select-icon';
+    protected string $view = 'cloudcake-icons::select-icon';
     protected array|Closure|null $allowedSets = null;
     protected string|Closure|null $placeholder = null;
     protected bool|Closure $searchable = true;
@@ -17,7 +17,7 @@ class SelectIcon extends Field
     {
         parent::setUp();
 
-        $this->placeholder(fn (): string => __('cloudcake-filament-icons::selecticon.placeholder'));
+        $this->placeholder(fn (): string => __('cloudcake-icons::selecticon.placeholder'));
     }
 
     public function modalSize(string|Closure|null $size): static

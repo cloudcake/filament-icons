@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudcake\Components;
+namespace Cloudcake\Icons;
 
 use BladeUI\Icons\Factory as IconFactory;
 use Illuminate\Support\Collection;

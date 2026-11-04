@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudcake\Components;
+namespace Cloudcake\Icons;
 
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -30,7 +30,7 @@ class IconsServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function bootLanguage(): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'cloudcake-filament-icons');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'cloudcake-icons');
     }
 
     private function bootRoutes(): void
@@ -40,6 +40,6 @@ class IconsServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function bootViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cloudcake-filament-icons');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cloudcake-icons');
     }
 }

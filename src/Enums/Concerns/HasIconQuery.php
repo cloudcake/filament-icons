@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudcake\Components\Enums\Concerns;
+namespace Cloudcake\Icons\Enums\Concerns;
 
 use Filament\Support\Enums\IconSize;
 

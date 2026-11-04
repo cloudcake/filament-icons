@@ -17,13 +17,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Cloudcake\\Components\\": "src/"
+      "Cloudcake\\Icons\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Cloudcake\\Components\\IconsServiceProvider"
+        "Cloudcake\\Icons\\IconsServiceProvider"
       ]
     }
   }

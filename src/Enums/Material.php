@@ -1,8 +1,8 @@
 <?php
 
-namespace Cloudcake\Components\Enums;
+namespace Cloudcake\Icons\Enums;
 
-use Cloudcake\Components\Enums\Concerns\HasIconQuery;
+use Cloudcake\Icons\Enums\Concerns\HasIconQuery;
 use Filament\Support\Contracts\ScalableIcon;
 
 enum Material: string implements ScalableIcon
